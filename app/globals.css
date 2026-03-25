@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:wght@300..700&display=swap");
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────
+   Design Tokens — Tailwind v4 @theme
+   ───────────────────────────────────────────── */
+@theme inline {
+  /* Brand colors */
+  --color-forest:     #1A3C34;
+  --color-warm-white: #F5F0EB;
+  --color-gold:       #C9A84C;
+  --color-sage:       #7A9E8E;
+  --color-charcoal:   #2C2C2C;
+  --color-mist:       #EAE6E0;
+
+  /* Font families */
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans:    "DM Sans", system-ui, sans-serif;
+
+  /* Custom spacing */
+  --spacing-18: 4.5rem;
+}
+
+/* ─────────────────────────────────────────────
+   CSS Custom Properties (for non-Tailwind use)
+   ───────────────────────────────────────────── */
+:root {
+  --color-forest:     #1A3C34;
+  --color-warm-white: #F5F0EB;
+  --color-gold:       #C9A84C;
+  --color-sage:       #7A9E8E;
+  --color-charcoal:   #2C2C2C;
+  --color-mist:       #EAE6E0;
+}
+
+/* ─────────────────────────────────────────────
+   Base styles
+   ───────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-warm-white);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─────────────────────────────────────────────
+   Grain texture overlay utility
+   ─────────────────────────────────────────────
+   Usage: add class="grain" to a relative container.
+   The pseudo-element sits on top at 4% opacity.
+   ───────────────────────────────────────────── */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/grain.png");
+  background-repeat: repeat;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────────
+   Frosted glass nav utility
+   ───────────────────────────────────────────── */
+.frosted {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ─────────────────────────────────────────────
+   Organic SVG curve divider helper
+   ───────────────────────────────────────────── */
+.curve-divider svg {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
