@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPostsMeta, type PostMeta } from "@/lib/posts";
+import CoverImage from "@/components/shared/CoverImage";
 
 export const metadata: Metadata = {
   title: "Hormone Health Blog | Body Balance Lawrence, KS",
@@ -34,10 +35,11 @@ function PostCard({ post }: { post: PostMeta }) {
       href={`/blog/${post.slug}`}
       className="group flex flex-col bg-warm-white rounded-2xl border border-mist overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
     >
-      {/* Cover placeholder */}
-      <div className="aspect-[16/9] bg-gradient-to-br from-forest/10 to-sage/20 flex items-end p-4">
+      {/* Cover */}
+      <div className="aspect-[16/9] relative overflow-hidden">
+        <CoverImage src={null} alt={post.title} className="absolute inset-0" />
         <span
-          className={`inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full ${colorClass}`}
+          className={`absolute bottom-3 left-3 inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full ${colorClass}`}
           style={{ fontFamily: "var(--font-sans)" }}
         >
           {post.category}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import CoverImage from "@/components/shared/CoverImage";
 
 export const metadata: Metadata = {
   title: "Meet the Team | Body Balance Lawrence, KS",
@@ -13,21 +14,21 @@ const team = [
     title: "Founder & Clinical Director",
     credentials: "NP-C",
     bio: "Justin founded Body Balance after seeing firsthand how conventional medicine often missed the hormonal root causes behind patients' most debilitating symptoms. With a background in emergency medicine and functional health, he brings a data-driven, whole-person perspective to every patient relationship. Justin believes that feeling great shouldn't be a luxury — it should be accessible to everyone willing to invest in their health.",
-    gradient: "from-forest/20 to-sage/20",
+    photo: null as string | null,
   },
   {
     name: "Robin",
     title: "Patient Care Coordinator",
     credentials: "RN",
     bio: "Robin is often the first voice patients hear at Body Balance, and she takes that responsibility seriously. With years of nursing experience and a gift for making people feel at ease, she guides patients through every step of their journey — from initial questions to lab coordination to ongoing check-ins. Robin is deeply committed to the idea that healthcare should feel personal, not transactional.",
-    gradient: "from-gold/15 to-sage/15",
+    photo: null as string | null,
   },
   {
     name: "Josh",
     title: "Wellness Advisor",
     credentials: "BS, NASM-CPT",
     bio: "Josh brings the lifestyle side of wellness to the Body Balance equation. With a background in strength training, nutrition coaching, and behavioral change, he helps patients build sustainable habits that amplify the results of their hormone protocols. Josh knows from personal experience that the right hormonal support combined with the right lifestyle is a powerful combination.",
-    gradient: "from-sage/20 to-forest/10",
+    photo: null as string | null,
   },
 ];
 
@@ -58,16 +59,18 @@ export default function TeamPage() {
       <section className="py-20 lg:py-28 bg-warm-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-8">
-            {team.map((member, i) => (
+            {team.map((member) => (
               <div
                 key={member.name}
                 className="grid grid-cols-1 md:grid-cols-4 gap-0 rounded-3xl overflow-hidden border border-mist shadow-sm"
               >
-                {/* Photo placeholder */}
-                <div className={`md:col-span-1 bg-gradient-to-br ${member.gradient} min-h-[200px] md:min-h-0 flex items-end justify-start p-6`}>
-                  <span className="text-xs font-semibold uppercase tracking-wider text-charcoal/30" style={{ fontFamily: "var(--font-sans)" }}>
-                    Photo
-                  </span>
+                {/* Photo — swaps in automatically when member.photo is set */}
+                <div className="md:col-span-1 relative min-h-[240px] md:min-h-0">
+                  <CoverImage
+                    src={member.photo}
+                    alt={`${member.name}, ${member.title} at Body Balance Lawrence KS`}
+                    className="absolute inset-0"
+                  />
                 </div>
                 {/* Content */}
                 <div className="md:col-span-3 bg-mist p-8 sm:p-10">

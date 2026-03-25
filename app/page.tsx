@@ -8,6 +8,7 @@ import Testimonials from "@/components/home/Testimonials";
 import FAQAccordion from "@/components/home/FAQAccordion";
 import BlogTeaser from "@/components/home/BlogTeaser";
 import BookingBanner from "@/components/home/BookingBanner";
+import { getAllPostsMeta } from "@/lib/posts";
 
 export const metadata: Metadata = {
   title: "Hormone Therapy & Wellness Clinic in Lawrence, KS | Body Balance",
@@ -59,6 +60,7 @@ const localBusinessSchema = {
 };
 
 export default function HomePage() {
+  const posts = getAllPostsMeta();
   return (
     <>
       <script
@@ -72,7 +74,7 @@ export default function HomePage() {
       <HowItWorks />
       <Testimonials />
       <FAQAccordion />
-      <BlogTeaser />
+      <BlogTeaser posts={posts} />
       <BookingBanner />
     </>
   );

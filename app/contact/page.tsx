@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 type FormValues = {
   name: string;
@@ -28,12 +29,37 @@ export default function ContactPage() {
   const [submitting, setSubmitting] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
   async function onSubmit(data: FormValues) {
     setSubmitting(true);
+    setSubmitError(null);
     try {
-      console.log("Contact form:", data);
-      await new Promise((r) => setTimeout(r, 700));
-      setSubmitted(true);
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "",
+          subject: `New consultation request — ${data.service}`,
+          from_name: data.name,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          service: data.service,
+          preferred_time: data.preferredTime || "No preference",
+          message: data.message || "(none provided)",
+          // Redirect is handled client-side; disable Web3Forms redirect
+          redirect: "false",
+        }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        setSubmitted(true);
+      } else {
+        setSubmitError("Something went wrong. Please call us at (785) 424-7233.");
+      }
+    } catch {
+      setSubmitError("Network error. Please try again or call (785) 424-7233.");
     } finally {
       setSubmitting(false);
     }
@@ -123,13 +149,19 @@ export default function ContactPage() {
                     rows={4} {...register("message")}
                     className={`${inputBase} ${normalBorder} resize-none`}
                     style={{ fontFamily: "var(--font-sans)" }} />
+                  {submitError && (
+                    <p className="text-sm text-red-600 text-center rounded-xl bg-red-50 px-4 py-3" style={{ fontFamily: "var(--font-sans)" }}>
+                      {submitError}
+                    </p>
+                  )}
                   <button type="submit" disabled={submitting}
                     className="w-full py-4 rounded-xl font-semibold bg-gold text-forest hover:bg-gold/90 disabled:opacity-60 transition-all shadow-lg text-base"
                     style={{ fontFamily: "var(--font-sans)" }}>
                     {submitting ? "Sending…" : "Send Message"}
                   </button>
                   <p className="text-xs text-charcoal/40 text-center" style={{ fontFamily: "var(--font-sans)" }}>
-                    We respond within 1 business day. Your info is 100% private.
+                    We respond within 1 business day. Your info is 100% private.{" "}
+                    <Link href="/privacy" className="underline hover:text-charcoal/60">Privacy Policy</Link>.
                   </p>
                 </form>
               )}
