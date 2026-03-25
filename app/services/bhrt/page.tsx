@@ -26,9 +26,40 @@ export const metadata: Metadata = {
   },
 };
 
+const bhrtSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  name: "Bioidentical Hormone Replacement Therapy (BHRT) — Body Balance Lawrence KS",
+  description:
+    "Personalized BHRT for men and women in Lawrence, KS. Lab-based protocols using bioidentical estradiol, progesterone, and testosterone.",
+  url: "https://www.bodybalanceks.com/services/bhrt",
+  medicalAudience: { "@type": "MedicalAudience", audienceType: "Patient" },
+  about: { "@type": "MedicalCondition", name: "Hormonal Imbalance" },
+  mainContentOfPage: {
+    "@type": "WebPageElement",
+    cssSelector: "main",
+  },
+  provider: {
+    "@type": "MedicalClinic",
+    name: "Body Balance",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "1311 Wakarusa Dr Ste 2121",
+      addressLocality: "Lawrence",
+      addressRegion: "KS",
+      postalCode: "66049",
+    },
+    telephone: "+17854247233",
+  },
+};
+
 export default function BHRTPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(bhrtSchema) }}
+      />
       <BHRTHero />
       <WhatIsBHRT />
       <GenderTabs />

@@ -25,9 +25,36 @@ export const metadata: Metadata = {
   },
 };
 
+const weightSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  name: "Medical Weight Management — Body Balance Lawrence KS",
+  description:
+    "Physician-supervised GLP-1/GIP therapy (semaglutide, tirzepatide) and metabolic optimization for medical weight loss in Lawrence, KS.",
+  url: "https://www.bodybalanceks.com/services/weight-management",
+  medicalAudience: { "@type": "MedicalAudience", audienceType: "Patient" },
+  about: { "@type": "MedicalCondition", name: "Obesity" },
+  provider: {
+    "@type": "MedicalClinic",
+    name: "Body Balance",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "1311 Wakarusa Dr Ste 2121",
+      addressLocality: "Lawrence",
+      addressRegion: "KS",
+      postalCode: "66049",
+    },
+    telephone: "+17854247233",
+  },
+};
+
 export default function WeightManagementPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(weightSchema) }}
+      />
       <WeightHero />
       <WeightOfferings />
       <WeightProcess />

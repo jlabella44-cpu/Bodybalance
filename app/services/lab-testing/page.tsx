@@ -17,9 +17,36 @@ export const metadata: Metadata = {
   ],
 };
 
+const labSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalWebPage",
+  name: "Hormone & Metabolic Lab Testing — Body Balance Lawrence KS",
+  description:
+    "Comprehensive hormone panels including estradiol, testosterone, thyroid, cortisol, insulin, and metabolic markers in Lawrence, KS.",
+  url: "https://www.bodybalanceks.com/services/lab-testing",
+  medicalAudience: { "@type": "MedicalAudience", audienceType: "Patient" },
+  about: { "@type": "MedicalTest", name: "Hormone Panel" },
+  provider: {
+    "@type": "MedicalClinic",
+    name: "Body Balance",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "1311 Wakarusa Dr Ste 2121",
+      addressLocality: "Lawrence",
+      addressRegion: "KS",
+      postalCode: "66049",
+    },
+    telephone: "+17854247233",
+  },
+};
+
 export default function LabTestingPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(labSchema) }}
+      />
       <LabHero />
       <WhyLabsMatter />
       <WhatWeTest />
